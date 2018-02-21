@@ -15,8 +15,10 @@ npm start
 
 ## Additional npm Tasks
 
+* npm run lint
+
 * npm run build
 
-* npm run lint
+* nom run prod:start
 
 * npm run build:clean
