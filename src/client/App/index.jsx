@@ -26,6 +26,12 @@ const HELLO_QUERY = gql`
   }
 `;
 
+const TIME_QUERY = gql`
+  query {
+    currentTime @client
+  }
+`;
+
 const App = () => (
   <Header>
     <Heading>Hello React</Heading>
@@ -35,6 +41,15 @@ const App = () => (
         if (error) return <div>Error: No GraphQL here :(</div>;
 
         return <Heading>{data.greeting}</Heading>;
+      }}
+    </Query>
+
+    <Query query={TIME_QUERY}>
+      {({ loading, error, data }) => {
+        if (loading) return <div>Loading...</div>;
+        if (error) return <div>Error: No GraphQL here :(</div>;
+
+        return <Heading>{data.currentTime}</Heading>;
       }}
     </Query>
   </Header>
