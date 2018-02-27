@@ -17,7 +17,7 @@ const Header = styled.header`
 
 const Heading = styled.h1`
   text-align: center;
-  color: paleturquoise;
+  color: ${({ color = 'paleturquoise' }) => color};
 `;
 
 const HELLO_QUERY = gql`
@@ -36,20 +36,20 @@ const App = () => (
   <Header>
     <Heading>Hello React</Heading>
     <Query query={HELLO_QUERY}>
-      {({ loading, error, data }) => {
-        if (loading) return <div>Loading...</div>;
-        if (error) return <div>Error: No GraphQL here :(</div>;
+      {({ loading, error, data: greeting }) => {
+        if (loading) return <Heading>Loading...</Heading>;
+        if (error) return <Heading color="red">Error: No GraphQL here :(</Heading>;
 
-        return <Heading>{data.greeting}</Heading>;
+        return <Heading>{greeting}</Heading>;
       }}
     </Query>
 
     <Query query={TIME_QUERY}>
-      {({ loading, error, data }) => {
-        if (loading) return <div>Loading...</div>;
-        if (error) return <div>Error: No GraphQL here :(</div>;
+      {({ loading, error, data: currentTime }) => {
+        if (loading) return <Heading>Loading...</Heading>;
+        if (error) return <Heading color="red">Error: No Apollo State here :(</Heading>;
 
-        return <Heading>{data.currentTime}</Heading>;
+        return <Heading>{currentTime}</Heading>;
       }}
     </Query>
   </Header>
