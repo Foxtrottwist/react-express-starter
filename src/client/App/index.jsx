@@ -36,20 +36,20 @@ const App = () => (
   <Header>
     <Heading>Hello React</Heading>
     <Query query={HELLO_QUERY}>
-      {({ loading, error, data: greeting }) => {
+      {({ loading, error, data }) => {
         if (loading) return <Heading>Loading...</Heading>;
         if (error) return <Heading color="red">Error: No GraphQL here :(</Heading>;
 
-        return <Heading>{greeting}</Heading>;
+        return <Heading>{data.greeting}</Heading>;
       }}
     </Query>
 
     <Query query={TIME_QUERY}>
-      {({ loading, error, data: currentTime }) => {
+      {({ loading, error, data }) => {
         if (loading) return <Heading>Loading...</Heading>;
         if (error) return <Heading color="red">Error: No Apollo State here :(</Heading>;
 
-        return <Heading>{currentTime}</Heading>;
+        return <Heading>{data.currentTime}</Heading>;
       }}
     </Query>
   </Header>
