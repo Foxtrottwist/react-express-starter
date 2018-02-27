@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
-import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-boost';
+import format from 'date-fns/format';
 import { injectGlobal } from 'styled-components';
 
 import App from './App';
@@ -12,8 +13,11 @@ injectGlobal`
 `;
 
 const client = new ApolloClient({
-  link: new HttpLink(),
-  cache: new InMemoryCache(),
+  clientState: {
+    defaults: {
+      currentTime: format(new Date(), 'HH:mm:ss'),
+    },
+  },
 });
 
 const ApolloApp = AppComponent => (
