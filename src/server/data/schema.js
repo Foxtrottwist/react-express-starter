@@ -3,8 +3,13 @@ const { makeExecutableSchema } = require('graphql-tools');
 const resolvers = require('./resolvers');
 
 const typeDefs = `
+type Todo {
+    id: Int,
+    title: String,
+    completed: Boolean
+}
     type Query {
-        greeting: String
+        todos: [Todo]
     }
 `;
 
