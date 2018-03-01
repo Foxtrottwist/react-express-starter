@@ -11,9 +11,7 @@ const NavBar = styled.nav`
   padding: 0 1% 0 1%;
   margin-top: 0.5rem;
   background-color: #0079bf;
-  border-radius: 2%;
   border-right: 0.3rem solid #00a5e3;
-  border-top: 0.3rem solid #00a5e3;
   box-shadow: 3px 3px 5px 0px #ccc;
 
   a {
