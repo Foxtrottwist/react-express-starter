@@ -1,58 +1,23 @@
 import React from 'react';
-import { Query } from 'react-apollo';
-import { gql } from 'apollo-boost';
-import styled from 'styled-components';
+import { BrowserRouter, Route } from 'react-router-dom';
 
-const Header = styled.header`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #0079bf;
-  height: 20vh;
-  margin-top: 1rem;
-  border-top: 0.3rem solid #00a5e3;
-  box-shadow: 3px 3px 5px 0px #ccc;
-`;
-
-const Heading = styled.h1`
-  text-align: center;
-  color: ${({ color = 'paleturquoise' }) => color};
-`;
-
-const HELLO_QUERY = gql`
-  query {
-    greeting
-  }
-`;
-
-const TIME_QUERY = gql`
-  query {
-    currentTime @client
-  }
-`;
+import Navigation from './Navigation';
+import Header from './Header';
+import Dashboard from './Dashboard';
+import Timers from './Timers';
+import Todos from './Todos';
 
 const App = () => (
-  <Header>
-    <Heading>Hello React</Heading>
-    <Query query={HELLO_QUERY}>
-      {({ loading, error, data }) => {
-        if (loading) return <Heading>Loading...</Heading>;
-        if (error) return <Heading color="red">Error: No GraphQL here :(</Heading>;
+  <BrowserRouter>
+    <div>
+      <Navigation />
+      <Header />
 
-        return <Heading>{data.greeting}</Heading>;
-      }}
-    </Query>
-
-    <Query query={TIME_QUERY}>
-      {({ loading, error, data }) => {
-        if (loading) return <Heading>Loading...</Heading>;
-        if (error) return <Heading color="red">Error: No Apollo State here :(</Heading>;
-
-        return <Heading>{data.currentTime}</Heading>;
-      }}
-    </Query>
-  </Header>
+      <Route path="/" component={Dashboard} />
+      <Route path="/timers" component={Timers} />
+      <Route path="/todos" component={Todos} />
+    </div>
+  </BrowserRouter>
 );
 
 export default App;
