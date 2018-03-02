@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-const FormBox = styled.div`
-  display: flex;
-  margin-top: 3rem;
-  justify-content: center;
-`;
-
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -61,13 +55,11 @@ class TodoAdd extends Component {
 
   render() {
     return (
-      <FormBox>
-        <Form onSubmit={this.handleSubmit}>
-          <Label>Todo Title:</Label>
-          <Input type="text" value={this.state.todoTitle} onChange={this.handleChange} />
-          <Button type="submit">Add Todo</Button>
-        </Form>
-      </FormBox>
+      <Form onSubmit={this.handleSubmit}>
+        <Label>Todo Title:</Label>
+        <Input type="text" value={this.state.todoTitle} onChange={this.handleChange} />
+        <Button type="submit">Add Todo</Button>
+      </Form>
     );
   }
 }
