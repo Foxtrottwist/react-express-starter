@@ -8,10 +8,19 @@ const todos = [
   { id: 7, title: 'Workout', completed: false },
 ];
 
+let newID = 7;
+
 const resolvers = {
   Query: {
     todos() {
       return todos;
+    },
+  },
+  Mutation: {
+    addTodo(root, args) {
+      const newTodo = { id: (newID += 1), title: args.title, completed: false };
+      todos.push(newTodo);
+      return newTodo;
     },
   },
 };

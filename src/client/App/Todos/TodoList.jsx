@@ -14,7 +14,7 @@ const List = styled.ul`
   }
 `;
 
-const TODOS_QUERY = gql`
+export const TODOS_QUERY = gql`
   query {
     todos {
       id

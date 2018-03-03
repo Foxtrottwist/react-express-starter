@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+import { graphql } from 'react-apollo';
+import { gql } from 'apollo-boost';
 import styled from 'styled-components';
+
+import { TODOS_QUERY } from './TodoList';
 
 const Form = styled.form`
   display: flex;
@@ -54,6 +58,10 @@ class TodoAdd extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    this.props.mutate({
+      variables: { title: this.state.todoTitle },
+      refetchQueries: [{ query: TODOS_QUERY }],
+    });
     this.setState(() => ({ todoTitle: '' }));
   };
 
@@ -73,4 +81,14 @@ class TodoAdd extends Component {
   }
 }
 
-export default TodoAdd;
+const ADD_TODO = gql`
+  mutation addTodo($title: String!) {
+    addTodo(title: $title) {
+      id
+      title
+      completed
+    }
+  }
+`;
+
+export default graphql(ADD_TODO)(TodoAdd);
