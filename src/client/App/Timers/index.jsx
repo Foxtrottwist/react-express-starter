@@ -1,13 +1,14 @@
 import React from 'react';
 
+import { Row } from '../utils/sharedStyles';
 import TimerList from './TimerList';
 import TimerCreate from './TimerCreate';
 
 const Timers = () => (
-  <div>
+  <Row>
     <TimerList />
     <TimerCreate />
-  </div>
+  </Row>
 );
 
 export default Timers;

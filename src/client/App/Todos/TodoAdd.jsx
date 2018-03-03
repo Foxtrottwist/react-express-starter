@@ -3,6 +3,7 @@ import { graphql } from 'react-apollo';
 import { gql } from 'apollo-boost';
 import styled from 'styled-components';
 
+import { Button } from '../utils/sharedStyles';
 import { TODOS_QUERY } from './TodoList';
 
 const Form = styled.form`
@@ -33,22 +34,6 @@ const Label = styled.label`
   padding: 2% 0 2% 3%;
   background-color: #0079bf;
   border-right: 0.3rem solid #00a5e3;
-`;
-
-const Button = styled.button`
-  height: 1.5rem;
-  width: 5rem;
-  background-color: #fff;
-  border: 0.1rem solid #0079bf;
-  border-right: 0.3rem solid #00a5e3;
-  border-radius: 3%;
-  cursor: pointer;
-  color: #0079bf;
-  font-size: 0.9rem;
-  font-weight: 300;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
 `;
 
 class TodoAdd extends Component {
