@@ -5,6 +5,9 @@ import styled from 'styled-components';
 
 const List = styled.ul`
   list-style: none;
+  padding: 0 0.5rem 1rem 0.5rem;
+  color: #0079bf;
+  border-left: 0.3rem solid #00a5e3;
 
   li {
     padding: 0 0 0.5rem 0;

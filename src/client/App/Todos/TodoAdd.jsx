@@ -8,29 +8,38 @@ const Form = styled.form`
   height: 8rem;
   width: 12rem;
   padding: 1%;
+  border-left: 0.3rem solid #00a5e3;
 `;
 
 const Input = styled.input`
   display: block;
   height: 1.5rem;
-  width: 10rem;
+  width: 11rem;
   border: 0.001rem solid #000;
   margin-bottom: 2.5rem;
   padding-left: 0.3rem;
   padding-right: 0.3rem;
+  border: 0.1rem solid #0079bf;
+  border-right: 0.3rem solid #00a5e3;
 `;
 
 const Label = styled.label`
   font-size: 1rem;
+  color: paleturquoise;
+  padding: 2% 0 2% 3%;
+  background-color: #0079bf;
+  border-right: 0.3rem solid #00a5e3;
 `;
 
 const Button = styled.button`
   height: 1.5rem;
   width: 5rem;
   background-color: #fff;
-  border: 0.08rem solid ${props => props.color};
+  border: 0.1rem solid #0079bf;
+  border-right: 0.3rem solid #00a5e3;
   border-radius: 3%;
   cursor: pointer;
+  color: #0079bf;
   font-size: 0.9rem;
   font-weight: 300;
   text-align: center;
@@ -56,7 +65,7 @@ class TodoAdd extends Component {
   render() {
     return (
       <Form onSubmit={this.handleSubmit}>
-        <Label>Todo Title:</Label>
+        <Label>New Todo:</Label>
         <Input type="text" value={this.state.todoTitle} onChange={this.handleChange} />
         <Button type="submit">Add Todo</Button>
       </Form>
