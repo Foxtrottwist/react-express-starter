@@ -1,13 +1,14 @@
 import React from 'react';
 
+import { Row } from './utils/sharedStyles';
 import TimerList from './Timers/TimerList';
 import TodoList from './Todos/TodoList';
 
 const Dashboard = () => (
-  <div>
+  <Row>
     <TimerList />
     <TodoList />
-  </div>
+  </Row>
 );
 
 export default Dashboard;

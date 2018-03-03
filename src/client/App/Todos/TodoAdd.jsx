@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
+import { graphql } from 'react-apollo';
+import { gql } from 'apollo-boost';
 import styled from 'styled-components';
 
-const FormBox = styled.div`
-  display: flex;
-  margin-top: 3rem;
-  justify-content: center;
-`;
+import { Button } from '../utils/sharedStyles';
+import { TODOS_QUERY } from './TodoList';
 
 const Form = styled.form`
   display: flex;
@@ -14,34 +13,27 @@ const Form = styled.form`
   height: 8rem;
   width: 12rem;
   padding: 1%;
+  border-left: 0.3rem solid #00a5e3;
 `;
 
 const Input = styled.input`
   display: block;
   height: 1.5rem;
-  width: 10rem;
+  width: 11rem;
   border: 0.001rem solid #000;
   margin-bottom: 2.5rem;
   padding-left: 0.3rem;
   padding-right: 0.3rem;
+  border: 0.1rem solid #0079bf;
+  border-right: 0.3rem solid #00a5e3;
 `;
 
 const Label = styled.label`
   font-size: 1rem;
-`;
-
-const Button = styled.button`
-  height: 1.5rem;
-  width: 5rem;
-  background-color: #fff;
-  border: 0.08rem solid ${props => props.color};
-  border-radius: 3%;
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 300;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
+  color: paleturquoise;
+  padding: 2% 0 2% 3%;
+  background-color: #0079bf;
+  border-right: 0.3rem solid #00a5e3;
 `;
 
 class TodoAdd extends Component {
@@ -51,6 +43,10 @@ class TodoAdd extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    this.props.mutate({
+      variables: { title: this.state.todoTitle },
+      refetchQueries: [{ query: TODOS_QUERY }],
+    });
     this.setState(() => ({ todoTitle: '' }));
   };
 
@@ -61,15 +57,23 @@ class TodoAdd extends Component {
 
   render() {
     return (
-      <FormBox>
-        <Form onSubmit={this.handleSubmit}>
-          <Label>Todo Title:</Label>
-          <Input type="text" value={this.state.todoTitle} onChange={this.handleChange} />
-          <Button type="submit">Add Todo</Button>
-        </Form>
-      </FormBox>
+      <Form onSubmit={this.handleSubmit}>
+        <Label>New Todo:</Label>
+        <Input type="text" value={this.state.todoTitle} onChange={this.handleChange} />
+        <Button type="submit">Add Todo</Button>
+      </Form>
     );
   }
 }
 
-export default TodoAdd;
+const ADD_TODO = gql`
+  mutation addTodo($title: String!) {
+    addTodo(title: $title) {
+      id
+      title
+      completed
+    }
+  }
+`;
+
+export default graphql(ADD_TODO)(TodoAdd);

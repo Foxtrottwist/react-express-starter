@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Query } from 'react-apollo';
-import { gql } from 'apollo-boost';
 import styled from 'styled-components';
 import format from 'date-fns/format';
 
@@ -21,12 +19,6 @@ const Heading = styled.h1`
   color: ${({ color = 'paleturquoise' }) => color};
 `;
 
-const HELLO_QUERY = gql`
-  query {
-    greeting
-  }
-`;
-
 class Header extends Component {
   state = {
     currentTime: format(new Date(), 'HH:mm:ss'),
@@ -41,22 +33,10 @@ class Header extends Component {
     this.setState(() => ({ currentTime }));
   };
 
-  renderHelloQuery = () => (
-    <Query query={HELLO_QUERY}>
-      {({ loading, error, data }) => {
-        if (loading) return <Heading>Loading...</Heading>;
-        if (error) return <Heading color="red">Error: No GraphQL here :(</Heading>;
-
-        return <Heading>{data.greeting}</Heading>;
-      }}
-    </Query>
-  );
-
   render() {
     return (
       <HeaderBox>
         <Heading>Hello React</Heading>
-        {this.renderHelloQuery()}
         <Heading>{this.state.currentTime}</Heading>
       </HeaderBox>
     );

@@ -13,9 +13,9 @@ const App = () => (
       <Navigation />
       <Header />
 
-      <Route path="/" component={Dashboard} />
-      <Route path="/timers" component={Timers} />
-      <Route path="/todos" component={Todos} />
+      <Route exact path="/" component={Dashboard} />
+      <Route exact path="/timers" component={Timers} />
+      <Route exact path="/todos" component={Todos} />
     </div>
   </BrowserRouter>
 );
