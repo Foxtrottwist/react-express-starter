@@ -4,15 +4,28 @@ const resolvers = require('./resolvers');
 
 const typeDefs = `
 type Todo {
-    id: Int,
-    title: String,
+    id: Int
+    title: String
     completed: Boolean
 }
+
+type Timer {
+    id: Int
+    title: String
+    start: String
+    finish: String
+    duration: String
+}
+
     type Query {
         todos: [Todo]
+        timers: [Timer]
     }
+
     type Mutation {
         addTodo(title: String!): Todo
+        
+        createTimer(title: String!, start: String, finish: String, duration: String): Timer
     }
 `;
 

@@ -8,12 +8,54 @@ const todos = [
   { id: 7, title: 'Workout', completed: false },
 ];
 
-let newID = 7;
+const timers = [
+  {
+    id: 8,
+    title: 'Studying Apollo API',
+    start: 'start',
+    finish: 'finish',
+    duration: 'duration',
+  },
+  {
+    id: 9,
+    title: 'Chores',
+    start: 'start',
+    finish: 'finish',
+    duration: 'duration',
+  },
+  {
+    id: 10,
+    title: 'Landing Site',
+    start: 'start',
+    finish: 'finish',
+    duration: 'duration',
+  },
+  {
+    id: 11,
+    title: 'Paperwork',
+    start: 'start',
+    finish: 'finish',
+    duration: 'duration',
+  },
+  {
+    id: 12,
+    title: 'Client Meeting',
+    start: 'start',
+    finish: 'finish',
+    duration: 'duration',
+  },
+];
+
+let newID = 12;
 
 const resolvers = {
   Query: {
     todos() {
       return todos;
+    },
+
+    timers() {
+      return timers;
     },
   },
   Mutation: {
@@ -21,6 +63,18 @@ const resolvers = {
       const newTodo = { id: (newID += 1), title: args.title, completed: false };
       todos.push(newTodo);
       return newTodo;
+    },
+
+    createTimer(root, args) {
+      const newTimer = {
+        id: (newID += 1),
+        title: args.title,
+        start: args.start,
+        finish: args.finish,
+        duration: args.duration,
+      };
+      timers.push(newTimer);
+      return newTimer;
     },
   },
 };
