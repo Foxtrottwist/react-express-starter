@@ -15,11 +15,14 @@ const client = new ApolloClient({
   clientState: {
     defaults: {
       showTimer: false,
+      name: '',
     },
-    Mutation: {
-      toggleShowTimer: (_, { showTimer }, { cache }) => {
-        cache.writeData({ data: { showTimer } });
-        return null;
+    resolvers: {
+      Mutation: {
+        toggleShowTimer: (_, { showTimer, name }, { cache }) => {
+          cache.writeData({ data: { showTimer, name } });
+          return null;
+        },
       },
     },
   },

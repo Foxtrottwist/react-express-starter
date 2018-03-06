@@ -1,58 +1,42 @@
 import React, { Component } from 'react';
-import { Query } from 'react-apollo';
+import { Mutation } from 'react-apollo';
 import { gql } from 'apollo-boost';
 
 import { Form, Input, Label, Button } from '../utils/sharedStyles';
-import Timer from './Timer';
 
 class TimerCreate extends Component {
   state = {
-    timerTitle: '',
-    timer: {
-      title: '',
-      start: '',
-      duration: 0,
-      time: '',
-    },
-  };
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-    this.setState(() => ({
-      showTimer: true,
-      timer: { title: this.state.timerTitle },
-    }));
+    timerName: '',
   };
 
   handleChange = (event) => {
-    const timerTitle = event.target.value;
-    this.setState(() => ({ timerTitle }));
+    const timerName = event.target.value;
+    this.setState(() => ({ timerName }));
   };
 
   render() {
-    const SHOW_TIMER = gql`
-      query {
-        showTimer @client
+    const TOGGLE_SHOW_TIMER = gql`
+      mutation toggleShowTimer($showTimer: Bolean!, $name: String!) {
+        toggleShowTimer(showTimer: $showTimer, name: $name) @client
       }
     `;
-    return (
-      <Query query={SHOW_TIMER}>
-        {({ loading, error, data }) => {
-          if (loading) return <span>Loading...</span>;
-          if (error) return <span color="red">Error: Connection Error</span>;
 
-          if (!data.showTimer) {
-            return (
-              <Form onSubmit={this.handleSubmit}>
-                <Label>New Timer:</Label>
-                <Input value={this.state.timerTitle} onChange={this.handleChange} />
-                <Button>Create Timer</Button>
-              </Form>
-            );
-          }
-          return <Timer {...this.state.timer} />;
-        }}
-      </Query>
+    return (
+      <Mutation mutation={TOGGLE_SHOW_TIMER}>
+        {toggleShowTimer => (
+          <Form
+            onSubmit={(event) => {
+              event.preventDefault();
+              toggleShowTimer({ variables: { showTimer: true, name: this.state.timerName } });
+              this.setState(() => ({ timerName: '' }));
+            }}
+          >
+            <Label>New Timer:</Label>
+            <Input value={this.state.timerName} onChange={this.handleChange} />
+            <Button>Create Timer</Button>
+          </Form>
+        )}
+      </Mutation>
     );
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
 
-const Timer = ({ title }) => <div>{`Hello I'm a Timer named ${title}`}</div>;
+const Timer = ({ name }) => <div>{`Hello I'm a Timer and my name is ${name}`}</div>;
 
 export default Timer;
