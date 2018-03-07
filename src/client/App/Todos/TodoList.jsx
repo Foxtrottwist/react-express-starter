@@ -2,7 +2,7 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import { gql } from 'apollo-boost';
 
-import { ListBox, List, Title } from '../utils/sharedStyles';
+import { Box, List, Title } from '../utils/sharedStyles';
 
 export const TODOS_QUERY = gql`
   query {
@@ -24,10 +24,10 @@ const TodoList = () => (
       }
 
       return (
-        <ListBox>
+        <Box>
           <Title>Todos</Title>
           <List>{data.todos.map(renderTodosQuery)}</List>
-        </ListBox>
+        </Box>
       );
     }}
   </Query>

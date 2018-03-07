@@ -2,7 +2,7 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import { gql } from 'apollo-boost';
 
-import { ListBox, List, Title } from '../utils/sharedStyles';
+import { Box, List, Title } from '../utils/sharedStyles';
 
 const TIMERS_QUERY = gql`
   query {
@@ -26,10 +26,10 @@ const TimerList = () => (
       }
 
       return (
-        <ListBox>
+        <Box>
           <Title>Timers</Title>
           <List>{data.timers.map(renderTimersQuery)}</List>
-        </ListBox>
+        </Box>
       );
     }}
   </Query>

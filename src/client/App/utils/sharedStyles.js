@@ -22,9 +22,12 @@ export const Button = styled.button`
   display: inline-block;
 `;
 
-export const ListBox = styled.div`
-  display: inline-block;
+export const Box = styled.div`
+  display: flex;
+  flex-direction: column;
   padding: 0 1rem 1rem 1rem;
+  height: 8rem;
+  width: 12rem;
   border-left: 0.3rem solid #00a5e3;
 `;
 
