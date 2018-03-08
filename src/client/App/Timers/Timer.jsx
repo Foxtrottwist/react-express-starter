@@ -8,43 +8,43 @@ import { Title, Box, Button } from '../utils/sharedStyles';
 class Timer extends Component {
   /* eslint-disable */
   state = {
+    timer: null,
     duration: 0,
     time: '00:00:00',
   };
   /* eslint-enable */
 
-  componentWillUnmount() {}
-
-  timer = null;
+  componentWillUnmount() {
+    this.pause();
+  }
 
   startTimer = () => {
-    if (this.timer) return;
+    if (this.state.timer) return;
 
     const start = new Date();
 
-    this.timer = setInterval(() => {
+    const timer = setInterval(() => {
       const now = new Date();
       const duration = differenceInMilliseconds(now, start);
       const hours = differenceInHours(now, start);
-      const minutesSecondsMilliseconds = format(duration, 'mm:ss');
+      const minutesSeconds = format(duration, 'mm:ss');
       // formatting for the rendered timer
-      const time =
-        hours < 10
-          ? `0${hours}:${minutesSecondsMilliseconds}`
-          : `${hours}:${minutesSecondsMilliseconds}`;
+      const time = hours < 10 ? `0${hours}:${minutesSeconds}` : `${hours}:${minutesSeconds}`;
       this.setState(() => ({ duration }));
       this.setState(() => ({ time }));
     }, 100);
+
+    this.setState(() => ({ timer }));
   };
 
   pause = () => {
-    clearInterval(this.timer);
-    this.timer = null;
+    clearInterval(this.state.timer);
+    this.setState(() => ({ timer: null }));
   };
 
   reset = () => {
-    clearInterval(this.timer);
-    this.timer = null;
+    clearInterval(this.state.timer);
+    this.setState(() => ({ timer: null }));
     this.setState(() => ({ time: '00:00:00', duration: 0 }));
   };
 
