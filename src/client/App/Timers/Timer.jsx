@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import format from 'date-fns/format';
 
 import { Title, Box, Button } from '../utils/sharedStyles';
+import formatTime from '../utils/formatTime';
 
 class Timer extends Component {
   state = {
@@ -25,19 +26,15 @@ class Timer extends Component {
       const now = Date.now();
       const { offset } = this.state;
 
-      // calculate the total duration on the timer
+      // calculate the total duration on the timer, make it look pretty with formatTime()
       const duration = this.state.duration + (now - offset);
+      const time = formatTime(duration);
 
-      // formating the output of the timer
-      const hours = Math.floor(duration / 1000 / 3600);
-      const minutesSeconds = format(duration, 'mm:ss');
-      const time = hours < 10 ? `0${hours}:${minutesSeconds}` : `${hours}:${minutesSeconds}`;
-
-      // updating state with duration and offset to allow for pausing, time renders the output
+      // updating state with duration and offset to allow for pausing
       this.setState(() => ({ duration, time, offset: now }));
     }, 300);
 
-    // if the start time has already been documented, don't overwrite
+    // if the start time has already been documented, don't overwrite it
     if (!this.state.start) {
       this.setState(() => ({ timer, start: format(new Date(), 'dddd MMMM DD, HH:mm') }));
     }

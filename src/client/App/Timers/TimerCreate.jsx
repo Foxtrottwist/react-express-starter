@@ -16,7 +16,7 @@ class TimerCreate extends Component {
 
   render() {
     const TOGGLE_SHOW_TIMER = gql`
-      mutation toggleShowTimer($showTimer: Bolean!, $name: String!) {
+      mutation toggleShowTimer($showTimer: Bolean!, $name: String) {
         toggleShowTimer(showTimer: $showTimer, name: $name) @client
       }
     `;
