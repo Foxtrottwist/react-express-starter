@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import format from 'date-fns/format';
-import differenceInMilliseconds from 'date-fns/difference_in_milliseconds';
 
 import { Title, Box, Button } from '../utils/sharedStyles';
 
@@ -27,7 +26,7 @@ class Timer extends Component {
       const { offset } = this.state;
 
       // calculate the total duration on the timer
-      const duration = this.state.duration + differenceInMilliseconds(now, offset);
+      const duration = this.state.duration + (now - offset);
 
       // formating the output of the timer
       const hours = Math.floor(duration / 1000 / 3600);
@@ -36,9 +35,6 @@ class Timer extends Component {
 
       // updating state with duration and offset to allow for pausing, time renders the output
       this.setState(() => ({ duration, time, offset: now }));
-
-      // eslint-disable-next-line
-      console.log(this.state);
     }, 300);
 
     // if the start time has already been documented, don't overwrite
