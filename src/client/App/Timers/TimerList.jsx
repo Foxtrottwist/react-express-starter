@@ -4,7 +4,7 @@ import { gql } from 'apollo-boost';
 
 import { Box, List, Title } from '../utils/sharedStyles';
 
-const TIMERS_QUERY = gql`
+export const TIMERS_QUERY = gql`
   query {
     timers {
       id
