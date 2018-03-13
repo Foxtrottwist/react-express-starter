@@ -16,7 +16,7 @@ class TimerCreate extends Component {
 
   render() {
     const TOGGLE_SHOW_TIMER = gql`
-      mutation toggleShowTimer($showTimer: Bolean!, $name: String!) {
+      mutation toggleShowTimer($showTimer: Bolean!, $name: String) {
         toggleShowTimer(showTimer: $showTimer, name: $name) @client
       }
     `;
@@ -31,7 +31,7 @@ class TimerCreate extends Component {
               this.setState(() => ({ timerName: '' }));
             }}
           >
-            <Label>New Timer:</Label>
+            <Label>Timer Name:</Label>
             <Input value={this.state.timerName} onChange={this.handleChange} />
             <Button>Create Timer</Button>
           </Form>

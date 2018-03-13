@@ -26,7 +26,7 @@ export const Box = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 1rem 1rem 1rem;
-  height: 8rem;
+  height: 15rem;
   width: 12rem;
   border-left: 0.3rem solid #00a5e3;
 `;
@@ -78,4 +78,8 @@ export const Label = styled.label`
   padding: 2% 0 2% 3%;
   background-color: #0079bf;
   border-right: 0.3rem solid #00a5e3;
+`;
+
+export const Error = styled.span`
+  color: red;
 `;
