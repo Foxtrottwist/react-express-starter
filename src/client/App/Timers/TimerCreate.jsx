@@ -31,7 +31,7 @@ class TimerCreate extends Component {
               this.setState(() => ({ timerName: '' }));
             }}
           >
-            <Label>New Timer:</Label>
+            <Label>Timer Name:</Label>
             <Input value={this.state.timerName} onChange={this.handleChange} />
             <Button>Create Timer</Button>
           </Form>

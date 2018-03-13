@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import { gql } from 'apollo-boost';
+import styled from 'styled-components';
 import format from 'date-fns/format';
 
-import { Title, Box, Button } from '../utils/sharedStyles';
+import { Title, Box, Button, Error } from '../utils/sharedStyles';
 import formatTime from '../utils/formatTime';
 import { TIMERS_QUERY } from './TimerList';
+
+const BtnBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 8rem;
+`;
 
 class Timer extends Component {
   state = {
@@ -15,6 +23,7 @@ class Timer extends Component {
     time: '00:00:00',
     start: '',
     finish: '',
+    error: null,
   };
 
   componentWillUnmount() {
@@ -24,7 +33,7 @@ class Timer extends Component {
   startTimer = () => {
     if (this.state.timer) return;
 
-    this.setState(() => ({ offset: Date.now() }));
+    this.setState(() => ({ offset: Date.now(), finish: '' }));
 
     const timer = setInterval(() => {
       const now = Date.now();
@@ -34,8 +43,6 @@ class Timer extends Component {
       const time = formatTime(duration);
       // updating state with duration and offset to allow for pausing
       this.setState(() => ({ duration, time, offset: now }));
-
-      console.log(this.state);
     }, 300);
     // if the start time has already been documented, don't overwrite it
     if (!this.state.start) {
@@ -44,9 +51,13 @@ class Timer extends Component {
     this.setState(() => ({ timer }));
   };
 
-  pause = () => {
+  stop = () => {
     clearInterval(this.state.timer);
-    this.setState(() => ({ timer: null }));
+    this.setState(() => ({
+      timer: null,
+      finish: format(new Date(), 'dddd MMMM DD, HH:mm'),
+      error: null,
+    }));
   };
 
   reset = () => {
@@ -82,17 +93,22 @@ class Timer extends Component {
         {createTimer => (
           <Button
             onClick={() => {
+              if (this.state.timer) {
+                this.setState(() => ({ error: 'Stop the timer before saving' }));
+                return;
+              }
               createTimer({
                 variables: {
                   title,
                   start,
                   finish,
                   duration,
-                  showTimer: false,
+                  showTimer: true,
                   name: '',
                 },
                 refetchQueries: [{ query: TIMERS_QUERY }],
               });
+              this.reset();
             }}
           >
             Save
@@ -107,10 +123,13 @@ class Timer extends Component {
       <Box>
         <Title>{this.props.name}</Title>
         <Title>{this.state.time}</Title>
-        <Button onClick={this.startTimer}>Start</Button>
-        {this.renderSaveButton()}
-        <Button onClick={this.pause}>Pause</Button>
-        <Button onClick={this.reset}>Reset</Button>
+        <BtnBox>
+          <Button onClick={this.startTimer}>Start</Button>
+          <Button onClick={this.stop}>Stop</Button>
+          <Button onClick={this.reset}>Reset</Button>
+          {this.renderSaveButton()}
+        </BtnBox>
+        {this.state.error ? <Error>{this.state.error}</Error> : null}
       </Box>
     );
   }

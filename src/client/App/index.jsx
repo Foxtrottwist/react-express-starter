@@ -9,14 +9,14 @@ import Todos from './Todos';
 
 const App = () => (
   <BrowserRouter>
-    <div>
+    <React.Fragment>
       <Navigation />
       <Header />
 
       <Route exact path="/" component={Dashboard} />
       <Route exact path="/timers" component={Timers} />
       <Route exact path="/todos" component={Todos} />
-    </div>
+    </React.Fragment>
   </BrowserRouter>
 );
 
