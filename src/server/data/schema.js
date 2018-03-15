@@ -4,7 +4,7 @@ const resolvers = require('./resolvers');
 
 const typeDefs = `
     type Greeting {
-        greeting: String
+        welcome: String
     }
 
     type Query {
@@ -12,7 +12,7 @@ const typeDefs = `
     }
 
     type Mutation {
-        changeGreeting(greeting: String!): Greeting
+        changeGreeting(welcome: String!): Greeting
     }
 `;
 

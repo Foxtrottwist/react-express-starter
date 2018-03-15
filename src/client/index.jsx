@@ -16,6 +16,14 @@ const client = new ApolloClient({
     defaults: {
       clientGreeting: 'Hello Apollo Link State!',
     },
+    resolvers: {
+      Mutation: {
+        changeClientGreeting(_, { clientGreeting }, { cache }) {
+          cache.writeData({ data: { clientGreeting } });
+          return null;
+        },
+      },
+    },
   },
 });
 
