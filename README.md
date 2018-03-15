@@ -2,8 +2,9 @@
 
 The goal of this starter is to get up and running quickly with a simple project or for experimentation. The webpack config is meant to be simple and easy to get your head around. In addition to React and Express this project also includes
 
-* GraphQL API with [Apollo](https://www.apollographql.com/)
-* styling with [styled components](https://www.styled-components.com/)
+* API - [Apollo](https://www.apollographql.com/)
+* state management - [apollo-link-state](https://www.apollographql.com/docs/link/links/state.html)
+* styling - [styled components](https://www.styled-components.com/)
 
 ## Getting started
 
