@@ -1,7 +1,9 @@
+const greeting = { greeting: 'Hello GraphQL!' };
+
 const resolvers = {
   Query: {
     greeting() {
-      return 'Hello GraphQL!';
+      return greeting;
     },
   },
 };

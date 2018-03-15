@@ -3,8 +3,16 @@ const { makeExecutableSchema } = require('graphql-tools');
 const resolvers = require('./resolvers');
 
 const typeDefs = `
-    type Query {
+    type Greeting {
         greeting: String
+    }
+
+    type Query {
+        greeting: Greeting
+    }
+
+    type Mutation {
+        changeGreeting(greeting: String!): Greeting
     }
 `;
 

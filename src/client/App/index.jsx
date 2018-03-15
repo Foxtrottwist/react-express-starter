@@ -20,15 +20,21 @@ const Heading = styled.h1`
   color: ${({ color = 'paleturquoise' }) => color};
 `;
 
+const Error = styled.span`
+  color: red;
+`;
+
 const HELLO_QUERY = gql`
   query {
-    greeting
+    greeting {
+      greeting
+    }
   }
 `;
 
-const TIME_QUERY = gql`
+const CLIENT_QUERY = gql`
   query {
-    currentTime @client
+    clientGreeting @client
   }
 `;
 
@@ -38,18 +44,18 @@ const App = () => (
     <Query query={HELLO_QUERY}>
       {({ loading, error, data }) => {
         if (loading) return <Heading>Loading...</Heading>;
-        if (error) return <Heading color="red">Error: No GraphQL here :(</Heading>;
+        if (error) return <Error>Error: No GraphQL here :(</Error>;
 
-        return <Heading>{data.greeting}</Heading>;
+        return <Heading>{data.greeting.greeting}</Heading>;
       }}
     </Query>
 
-    <Query query={TIME_QUERY}>
+    <Query query={CLIENT_QUERY}>
       {({ loading, error, data }) => {
         if (loading) return <Heading>Loading...</Heading>;
-        if (error) return <Heading color="red">Error: No Apollo State here :(</Heading>;
+        if (error) return <Error>Error: No Apollo State here :(</Error>;
 
-        return <Heading>{data.currentTime}</Heading>;
+        return <Heading>{data.clientGreeting}</Heading>;
       }}
     </Query>
   </Header>
