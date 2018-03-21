@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
-import format from 'date-fns/format';
 import { injectGlobal } from 'styled-components';
 
 import App from './App';
@@ -15,7 +14,15 @@ injectGlobal`
 const client = new ApolloClient({
   clientState: {
     defaults: {
-      currentTime: format(new Date(), 'HH:mm:ss'),
+      clientGreeting: 'Hello Apollo Link State!',
+    },
+    resolvers: {
+      Mutation: {
+        changeClientGreeting(_, { clientGreeting }, { cache }) {
+          cache.writeData({ data: { clientGreeting } });
+          return null;
+        },
+      },
     },
   },
 });

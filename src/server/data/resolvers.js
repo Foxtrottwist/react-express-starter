@@ -1,7 +1,16 @@
+const greeting = { welcome: 'Hello GraphQL!' };
+
 const resolvers = {
   Query: {
     greeting() {
-      return 'Hello GraphQL!';
+      return greeting;
+    },
+  },
+
+  Mutation: {
+    changeGreeting(root, args) {
+      greeting.welcome = args.welcome;
+      return greeting;
     },
   },
 };
